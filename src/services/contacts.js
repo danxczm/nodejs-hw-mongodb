@@ -9,9 +9,13 @@ export const getContactById = async id => await ContactsCollection.findById(id);
 export const createNewContact = async payload => await ContactsCollection.create(payload);
 
 export const patchContact = async (id, payload, options = {}) => {
-  const data = await ContactsCollection.findByIdAndUpdate({ _id: id }, payload, options);
+  const data = await ContactsCollection.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+    includeResultMetadata: true,
+    ...options,
+  });
 
-  if (!data || !data.result) return null;
+  if (!data || !data.value) return null;
 
   return {
     contact: data.value,
