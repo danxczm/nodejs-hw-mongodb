@@ -1,6 +1,6 @@
-// src/utils/AsyncControlWrapper.js
+// src/utils/asyncControlWrapper.js
 
-export const AsyncControlWrapper = controller => {
+export const asyncControlWrapper = controller => {
   return async (req, res, next) => {
     try {
       await controller(req, res, next);

@@ -17,23 +17,23 @@ import { isValidId } from '../middlewares/isValidId.js';
 
 const router = Router();
 
-router.get('/contacts', AsyncControlWrapper(getAllContactsListController));
+router.get('/', AsyncControlWrapper(getAllContactsListController));
 
-router.get('/contacts/:contactId', isValidId, AsyncControlWrapper(getContactByIdController));
+router.get('/:contactId', isValidId, AsyncControlWrapper(getContactByIdController));
 
 router.post(
-  '/contacts',
+  '/',
   validateBody(createContactSchema),
   AsyncControlWrapper(createNewContactController)
 );
 
 router.patch(
-  '/contacts/:contactId',
+  '/:contactId',
   isValidId,
   validateBody(updateContactSchema),
   AsyncControlWrapper(patchNewContactController)
 );
 
-router.delete('/contacts/:contactId', AsyncControlWrapper(deleteContactController));
+router.delete('/:contactId', isValidId, AsyncControlWrapper(deleteContactController));
 
 export default router;
