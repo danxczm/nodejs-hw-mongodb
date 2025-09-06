@@ -4,18 +4,14 @@ import { Router } from 'express';
 
 import { AsyncControlWrapper } from '../utils/AsyncControlWrapper.js';
 
-// import {
-//   getAllContactsListController,
-//   getContactByIdController,
-//   createNewContactController,
-//   patchNewContactController,
-//   deleteContactController,
-// } from '../controllers/contacts.js';
-// import { createContactSchema, updateContactSchema } from '../validations/contacts.js';
 import { validateBody } from '../middlewares/validateBody.js';
 // import { isValidId } from '../middlewares/isValidId.js';
-import { registerUserController } from '../controllers/auth.js';
-import { registerUserSchema } from '../validations/auth.js';
+import {
+  registerUserController,
+  loginUserController,
+  logoutUserController,
+} from '../controllers/auth.js';
+import { loginUserSchema, registerUserSchema } from '../validations/auth.js';
 
 const router = Router();
 
@@ -24,5 +20,9 @@ router.post(
   validateBody(registerUserSchema),
   AsyncControlWrapper(registerUserController)
 );
+
+router.post('/login', validateBody(loginUserSchema), AsyncControlWrapper(loginUserController));
+
+router.post('/logout', AsyncControlWrapper(logoutUserController));
 
 export default router;
