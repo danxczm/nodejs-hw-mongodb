@@ -10,6 +10,7 @@ import {
   registerUserController,
   loginUserController,
   logoutUserController,
+  refreshUserSessionController,
 } from '../controllers/auth.js';
 import { loginUserSchema, registerUserSchema } from '../validations/auth.js';
 
@@ -24,5 +25,7 @@ router.post(
 router.post('/login', validateBody(loginUserSchema), AsyncControlWrapper(loginUserController));
 
 router.post('/logout', AsyncControlWrapper(logoutUserController));
+
+router.post('/refresh', AsyncControlWrapper(refreshUserSessionController));
 
 export default router;
