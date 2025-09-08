@@ -1,7 +1,7 @@
 // src / controllers / auth.js;
 
-import { ONE_DAY } from '../constants';
-import { loginUser, logoutUser, refreshUsersSession, registerUser } from '../services/auth';
+import { ONE_DAY } from '../constants/index.js';
+import { loginUser, logoutUser, refreshUsersSession, registerUser } from '../services/auth.js';
 
 const setupSession = (res, session) => {
   const { refreshToken, _id } = session;

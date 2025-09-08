@@ -14,8 +14,11 @@ import {
 import { createContactSchema, updateContactSchema } from '../validations/contacts.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { isValidId } from '../middlewares/isValidId.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
+
+router.use(authenticate);
 
 router.get('/', AsyncControlWrapper(getAllContactsListController));
 
