@@ -8,7 +8,7 @@ import {
   getAllContactsListController,
   getContactByIdController,
   createNewContactController,
-  patchNewContactController,
+  patchContactController,
   deleteContactController,
 } from '../controllers/contacts.js';
 import { createContactSchema, updateContactSchema } from '../validations/contacts.js';
@@ -17,6 +17,7 @@ import { isValidId } from '../middlewares/isValidId.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import { checkRoles } from '../middlewares/checkRoles.js';
 import { ROLES } from '../constants/index.js';
+import { upload } from '../middlewares/multer.js';
 
 const router = Router();
 
@@ -33,6 +34,7 @@ router.get(
 
 router.post(
   '/',
+  upload.single('photo'),
   checkRoles(ROLES.ADMIN),
   validateBody(createContactSchema),
   AsyncControlWrapper(createNewContactController)
@@ -42,8 +44,9 @@ router.patch(
   '/:contactId',
   isValidId,
   checkRoles(ROLES.ADMIN, ROLES.USER),
+  upload.single('photo'),
   validateBody(updateContactSchema),
-  AsyncControlWrapper(patchNewContactController)
+  AsyncControlWrapper(patchContactController)
 );
 
 router.delete(
