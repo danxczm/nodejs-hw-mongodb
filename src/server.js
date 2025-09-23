@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import router from './routers/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import { UPLOAD_DIR } from './constants/index.js';
 
 dotenv.config();
 
@@ -34,6 +35,8 @@ export const setupServer = () => {
       message: 'Hello World!',
     });
   });
+
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use(router);
 
